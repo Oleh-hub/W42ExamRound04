@@ -1,4 +1,4 @@
-#include <string.h>
+#include <string.h> // strcmp
 #include <unistd.h> // execve, fork, pipe, dup2, close, chdir
 #include <sys/wait.h> // waitpid
 // tracing:
