@@ -5,6 +5,13 @@
 int main(void)
 {
     int pid = fork();
-    waitpid(pid, NULL, 0);
+    
+    int res = wait(NULL);
+    if (res == -1)
+        printf("No children porcesses in this fork's branch\n");
+    else
+        printf("Process %d has finished its execution\n", res);
+        // sleep(1);
+    // waitpid(pid, NULL, 0);
     printf("pid: %d, ppid: %i\n", getpid(), getppid());
 }

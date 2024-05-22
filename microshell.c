@@ -29,6 +29,11 @@ int exec(char **argv, int i)
     int status;
     int has_pipe = argv[i] && !strcmp(argv[i], "|");
 
+//    { //debug
+//         for (int j = 0; j <= i; j++)
+//             printf("%s ", argv[j]);
+//    }
+   
     if (!has_pipe && !strcmp(*argv, "cd"))
         return cd(argv, i);
 
@@ -36,7 +41,7 @@ int exec(char **argv, int i)
         return err("error: fatal\n");
 
     int pid = fork();
-    if (!pid)
+    if (!pid) // child
     {
         argv[i] = 0;
         if (has_pipe && (dup2(fd[1], 1) == -1 || close(fd[0]) == -1 || close(fd[1]) == -1))
@@ -47,7 +52,7 @@ int exec(char **argv, int i)
         return err("error: cannot execute "), err(*argv), err("\n");
     }
 
-    waitpid(pid, &status, 0);
+    waitpid(pid, &status, 0); // parent waits for child
     if (has_pipe && (dup2(fd[0], 0) == -1 || close(fd[0]) == -1 || close(fd[1]) == -1))
         return err("error: fatal\n");
     return WIFEXITED(status) && WEXITSTATUS(status);

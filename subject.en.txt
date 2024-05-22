@@ -33,7 +33,8 @@ executable (It should be the first argument of execve)
 "|" even if we limit the number of "open files" to less than 30.
 
 for example this should work:
-$>./microshell /bin/ls "|" /usr/bin/grep microshell ";" /bin/echo i love my microshell
+$>./microshell 
+
 microshell
 i love my microshell
 $>
