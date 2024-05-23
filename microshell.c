@@ -17,9 +17,9 @@ int cd(char **argv, int i)
         return err("error: cd: bad arguments\n");
     if (chdir(argv[1]) == -1)
         return err("error: cd: cannot change directory to "), err(argv[1]), err("\n");
-    { // tracing
-        printf("We are here: '%s'\n", getcwd(NULL, 0));
-    }
+    // { // tracing
+    //     printf("We are here: '%s'\n", getcwd(NULL, 0));
+    // }
     return 0;
 }
 

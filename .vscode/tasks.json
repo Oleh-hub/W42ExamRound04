@@ -8,7 +8,8 @@
                 "-fdiagnostics-color=always",
                 "-g",
                 // "${file}",
-                "microshell.c",
+                // "microshell.c",
+                "test.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
