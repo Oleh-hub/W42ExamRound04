@@ -1,4 +1,9 @@
-#include <stdio.h>
+/* roi 240716 10:54
+I just have passed the exam Ex 04 (microshell) in 50 minutes with such code: */
+	// for (int j = 0; j < i; j++)
+	// 	printf("'%s' ", argv[j]);
+	// printf("%d\n", i);
+// #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
@@ -21,9 +26,6 @@ int cd(char **argv, int i)
 
 int exec(char **argv, int i, char **envp)
 {
-	// for (int j = 0; j < i; j++)
-	// 	printf("'%s' ", argv[j]);
-	// printf("%d\n", i);
 	int status = 0;
 	int has_pipe = argv[i] && !strcmp(argv[i], "|");
 	int fd[2];
@@ -42,14 +44,12 @@ int exec(char **argv, int i, char **envp)
 			return err("error: fatal\n");
 		if (has_pipe && !strcmp(argv[0], "cd"))
 			return cd(argv, i);
-		if (!has_pipe && !strcmp(argv[0], "cd"))
-		return cd(argv, i);
 		execve(*argv, argv, envp);
 		return err("error: cannot execute "), err(argv[0]), err("\n");
 	}
 	waitpid(pid, &status, 0);
 	if (has_pipe && ( dup2(fd[0], 0) == -1 || close(fd[1]) == -1 || close(fd[0]) == -1))
-			return err("error: fatal\n");
+		return err("error: fatal\n");
 	return WIFEXITED(status) && WEXITSTATUS(status);
 }
 
